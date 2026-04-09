@@ -31,12 +31,12 @@ Praticar conceitos de **entrada e saída de dados**, **estruturas condicionais**
 
 ## 🗂️ Estrutura do Repositório
 
-Trabalhos_Java/
-│
-├── ValidacaoPersonagem/
-│ └── (códigos fonte e arquivos relacionados)
-│
-└── README.md
+Trabalhos_Java/  
+│  
+├── ValidacaoPersonagem/  
+│ └── (códigos fonte e arquivos relacionados)  
+│  
+└── README.md  
 
 ---
 
@@ -64,5 +64,5 @@ Incluir testes automatizados para os códigos.
 Refatorar e documentar melhor as classes conforme os conceitos forem avançando (POO, herança, interfaces, etc.).
 
 ## 👨‍🎓 Autor
-Nome: Felipe Kirschner Modesto
-Email:fekimodesto04@gmail.com
+Nome: Felipe Kirschner Modesto  
+Email:fekimodesto04@gmail.com  
