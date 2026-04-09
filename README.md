@@ -36,9 +36,6 @@ Trabalhos_Java/
 ├── ValidacaoPersonagem/
 │ └── (códigos fonte e arquivos relacionados)
 │
-├── e-commerce-g/
-│ └── (futuros trabalhos)
-│
 └── README.md
 
 ---
@@ -52,8 +49,11 @@ Trabalhos_Java/
 
 3. Navegue até a pasta do projeto desejado.
 4. Compile o arquivo .java
+   ```bash
 	javac NomeDoArquivo.java
+
 5. Execute:
+   ```bash
 	java NomeDoArquivo
 
 ## 📌 Próximos Passos
