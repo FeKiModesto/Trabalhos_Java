@@ -65,4 +65,4 @@ Refatorar e documentar melhor as classes conforme os conceitos forem avançando 
 
 ## 👨‍🎓 Autor
 Nome: Felipe Kirschner Modesto  
-Email:fekimodesto04@gmail.com  
+Email: fekimodesto04@gmail.com  
