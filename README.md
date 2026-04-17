@@ -4,31 +4,6 @@ Este repositório tem como finalidade armazenar e versionar os trabalhos desenvo
 
 ---
 
-## 📝 Resumo das Atividades
-
-Abaixo está um resumo de cada projeto/adicionado ao repositório, descrevendo sua finalidade e principais características.
-
-### ✅ ValidacaoPersonagem
-
-**Descrição:**  
-Este programa tem como objetivo validar atributos de um personagem de um jogo (como nome, idade, nível, classe, etc.), garantindo que os valores inseridos pelo usuário estejam dentro de regras pré-estabelecidas.
-
-**Motivo da criação:**  
-Praticar conceitos de **entrada e saída de dados**, **estruturas condicionais** (`if/else` ou `switch case`), **laços de repetição** (para validação contínua) e **métodos estáticos** em Java. Também serve como exercício de **boas práticas de validação de dados** em sistemas.
-
-**Funcionalidades esperadas:**
-- Verificar se o nome não está vazio.
-- Validar se a idade está entre 0 e 120 anos.
-- Validar nível entre 1 e 100.
-- Garantir que a classe do personagem seja uma das opções válidas (ex: Guerreiro, Mago, Arqueiro, etc.).
-- Exibir mensagens claras para o usuário em caso de erro.
-
-**Tecnologias utilizadas:**
-- Java SE (Standard Edition)
-- Scanner para captura de entrada do usuário
-
----
-
 ## 🗂️ Estrutura do Repositório
 
 Trabalhos_Java/  
