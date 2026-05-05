@@ -4,20 +4,6 @@ Este repositório tem como finalidade armazenar e versionar os trabalhos desenvo
 
 ---
 
-## 🗂️ Estrutura do Repositório
-
-Trabalhos_Java/  
-│  
-├── ValidacaoPersonagem/  
-│ └── (API de Validação de Personagens - Spring Boot)  
-|  
-├── cervejaria/  
-│ └── (API de Cervejaria - Spring Boot)  
-│  
-└── README.md  
-
----
-
 ## 🚀 Como Executar os Projetos (Spring Boot)
 
 1. Certifique-se de ter o **JDK 17** instalado.
