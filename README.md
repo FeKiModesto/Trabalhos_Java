@@ -9,34 +9,51 @@ Este repositório tem como finalidade armazenar e versionar os trabalhos desenvo
 Trabalhos_Java/  
 │  
 ├── ValidacaoPersonagem/  
-│ └── (códigos fonte e arquivos relacionados)  
+│ └── (API de Validação de Personagens - Spring Boot)  
+|  
+├── cervejaria/  
+│ └── (API de Cervejaria - Spring Boot)  
 │  
 └── README.md  
 
 ---
 
-## 🚀 Como Executar os Projetos
+## 🚀 Como Executar os Projetos (Spring Boot)
 
-1. Certifique-se de ter o **JDK** instalado (versão 8 ou superior).
+1. Certifique-se de ter o **JDK 17** instalado.
 2. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/Trabalhos_Java.git
+   git clone https://github.com/FeKiModesto/Trabalhos_Java.git
+   ```
 
 3. Navegue até a pasta do projeto desejado.
-4. Compile o arquivo .java
-   ```bash
-	javac NomeDoArquivo.java
+	```bash
+ 	cd ValidacaoPersonagem
+ 	# ou
+ 	cd cervejaria
+ 	```
+ 
+4. Execute com Maven:
+  ```bash
+	./mvnw spring-boot:run
+  ```
+| No Windows: mvnw.cmd spring-boot:run
 
-5. Execute:
-   ```bash
-	java NomeDoArquivo
+5. Acesse a API:
+```bash
+http://localhost:8080
+```
+## 📌 Projetos Disponíveis
+1. ValidacaoPersonagem
+API para criação e validação de personagens de jogo (CRUD completo).
+
+2. Cervejaria
+API para gerenciamento de estilos e cervejarias (CRUD completo com cache, documentação e observabilidade).
 
 ## 📌 Próximos Passos
-Adicionar novos trabalhos realizados em aula.
-
-Incluir testes automatizados para os códigos.
-
-Refatorar e documentar melhor as classes conforme os conceitos forem avançando (POO, herança, interfaces, etc.).
+- Adicionar novos trabalhos realizados em aula.
+- Incluir testes automatizados para os códigos.
+- Refatorar e documentar melhor as classes conforme os conceitos forem avançando (POO, herança, interfaces, etc.).
 
 ## 👨‍🎓 Autor
 Nome: Felipe Kirschner Modesto  
