@@ -1,7 +1,7 @@
-package fiap.com.br.cervejaria.service;
+package fiap.com.br.brewery.service;
 
-import fiap.com.br.cervejaria.entity.Estilo;
-import fiap.com.br.cervejaria.repository.EstiloRepository;
+import fiap.com.br.brewery.entity.Estilo;
+import fiap.com.br.brewery.repository.EstiloRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

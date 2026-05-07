@@ -1,9 +1,9 @@
-package fiap.com.br.cervejaria.data;
+package fiap.com.br.brewery.data;
 
-import fiap.com.br.cervejaria.entity.Cervejaria;
-import fiap.com.br.cervejaria.entity.Estilo;
-import fiap.com.br.cervejaria.service.CervejariaService;
-import fiap.com.br.cervejaria.service.EstiloService;
+import fiap.com.br.brewery.entity.Cervejaria;
+import fiap.com.br.brewery.entity.Estilo;
+import fiap.com.br.brewery.service.CervejariaService;
+import fiap.com.br.brewery.service.EstiloService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

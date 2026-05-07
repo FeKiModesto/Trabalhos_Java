@@ -1,4 +1,4 @@
-package fiap.com.br.cervejaria.entity;
+package fiap.com.br.brewery.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

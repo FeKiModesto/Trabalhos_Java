@@ -1,10 +1,9 @@
-package fiap.com.br.cervejaria.controllers;
+package fiap.com.br.brewery.controllers;
 
-import fiap.com.br.cervejaria.entity.Cervejaria;
-import fiap.com.br.cervejaria.entity.Estilo;
-import fiap.com.br.cervejaria.service.CervejariaService;
-import fiap.com.br.cervejaria.service.EstiloService;
+import fiap.com.br.brewery.entity.Brewery;
+import fiap.com.br.brewery.service.BreweryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -14,23 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cervejarias")
+@RequestMapping("/breweries")
 @RequiredArgsConstructor
-public class CervejariaController {
+@Tag(name = "Brewery", description = "Endpoints para gerenciamento de cervejarias")
+public class BreweryController {
 
-    private final CervejariaService cervejariaService;
-    private final EstiloService estiloService;
+    private final BreweryService breweryService;
 
-    public record CervejariaRequest(String nome, String endereco, Long estiloPrincipalId) {}
-    public record CervejariaUpdateRequest(String nome, String endereco, Long estiloPrincipalId) {}
+    public record BreweryRequest(String name, String country) {}
+    public record BreweryUpdateRequest(String name, String country) {}
 
     @GetMapping
     @Operation(summary = "Listar todas as cervejarias", description = "Retorna uma lista com todas as cervejarias cadastradas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso")
     })
-    public List<Cervejaria> getAllCervejarias() {
-        return cervejariaService.getAllCervejarias();
+    public List<Brewery> getAllBreweries() {
+        return breweryService.getAllBreweries();
     }
 
     @GetMapping("/{id}")
@@ -39,8 +38,8 @@ public class CervejariaController {
             @ApiResponse(responseCode = "200", description = "Cervejaria encontrada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Cervejaria não encontrada")
     })
-    public Cervejaria getCervejariaById(@PathVariable Long id) {
-        return cervejariaService.getCervejariaById(id);
+    public Brewery getBreweryById(@PathVariable Long id) {
+        return breweryService.getBreweryById(id);
     }
 
     @PostMapping
@@ -48,16 +47,12 @@ public class CervejariaController {
     @Operation(summary = "Cadastrar nova cervejaria", description = "Adiciona uma nova cervejaria ao catálogo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Cervejaria criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Estilo principal não encontrado")
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public Cervejaria createCervejaria(@RequestBody CervejariaRequest request) {
-        Estilo estilo = estiloService.getEstiloById(request.estiloPrincipalId());
-
-        return cervejariaService.addCervejaria(Cervejaria.builder()
-                .nome(request.nome())
-                .endereco(request.endereco())
-                .estiloPrincipal(estilo)
+    public Brewery createBrewery(@RequestBody BreweryRequest request) {
+        return breweryService.addBrewery(Brewery.builder()
+                .name(request.name())
+                .country(request.country())
                 .build());
     }
 
@@ -67,18 +62,13 @@ public class CervejariaController {
             @ApiResponse(responseCode = "200", description = "Cervejaria atualizada com sucesso"),
             @ApiResponse(responseCode = "404", description = "Cervejaria não encontrada")
     })
-    public Cervejaria updateCervejaria(@PathVariable Long id, @RequestBody CervejariaUpdateRequest request) {
-        Estilo estilo = null;
-        if (request.estiloPrincipalId() != null) {
-            estilo = estiloService.getEstiloById(request.estiloPrincipalId());
-        }
-
-        Cervejaria cervejariaAtualizada = Cervejaria.builder()
-                .nome(request.nome())
-                .endereco(request.endereco())
+    public Brewery updateBrewery(@PathVariable Long id, @RequestBody BreweryUpdateRequest request) {
+        Brewery breweryAtualizada = Brewery.builder()
+                .name(request.name())
+                .country(request.country())
                 .build();
 
-        return cervejariaService.updateCervejaria(id, cervejariaAtualizada, estilo);
+        return breweryService.updateBrewery(id, breweryAtualizada);
     }
 
     @DeleteMapping("/{id}")
@@ -88,7 +78,7 @@ public class CervejariaController {
             @ApiResponse(responseCode = "204", description = "Cervejaria removida com sucesso"),
             @ApiResponse(responseCode = "404", description = "Cervejaria não encontrada")
     })
-    public void deleteCervejaria(@PathVariable Long id) {
-        cervejariaService.deleteCervejaria(id);
+    public void deleteBrewery(@PathVariable Long id) {
+        breweryService.deleteBrewery(id);
     }
 }

@@ -1,4 +1,4 @@
-package fiap.com.br.cervejaria.entity;
+package fiap.com.br.brewery.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,20 +11,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "cervejarias")
-public class Cervejaria {
+@Table(name = "beers")
+public class Beer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
+
+    @Column(length = 500)
+    private String description;
+
+    private Double alcoholContent;
 
     @Column(length = 300)
-    private String endereco;
+    private String harmonization;
 
     @ManyToOne
-    @JoinColumn(name = "estilo_principal_id")
-    private Estilo estiloPrincipal;
+    @JoinColumn(name = "brewery_id")
+    private Brewery brewery;
 }

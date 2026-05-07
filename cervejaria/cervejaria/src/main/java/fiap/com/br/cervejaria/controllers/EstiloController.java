@@ -1,7 +1,7 @@
-package fiap.com.br.cervejaria.controllers;
+package fiap.com.br.brewery.controllers;
 
-import fiap.com.br.cervejaria.entity.Estilo;
-import fiap.com.br.cervejaria.service.EstiloService;
+import fiap.com.br.brewery.entity.Estilo;
+import fiap.com.br.brewery.service.EstiloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

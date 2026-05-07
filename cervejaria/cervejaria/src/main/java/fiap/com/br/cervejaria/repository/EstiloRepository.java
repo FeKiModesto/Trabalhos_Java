@@ -1,6 +1,6 @@
-package fiap.com.br.cervejaria.repository;
+package fiap.com.br.brewery.repository;
 
-import fiap.com.br.cervejaria.entity.Estilo;
+import fiap.com.br.brewery.entity.Estilo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EstiloRepository extends JpaRepository<Estilo, Long> {

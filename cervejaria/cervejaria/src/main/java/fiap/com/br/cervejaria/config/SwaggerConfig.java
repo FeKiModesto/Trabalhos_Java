@@ -1,4 +1,4 @@
-package fiap.com.br.cervejaria.config;
+package fiap.com.br.brewery.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

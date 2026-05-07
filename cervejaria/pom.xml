@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fiap.com.br</groupId>
-	<artifactId>cervejaria</artifactId>
+	<artifactId>brewery</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
