@@ -1,6 +1,6 @@
 package fiap.com.br.games.model;
 
-import fiap.com.br.games.controller.GameController;
+import fiap.com.br.games.controllers.GameController;
 import jakarta.persistence.*;
 import org.springframework.hateoas.EntityModel;
 
