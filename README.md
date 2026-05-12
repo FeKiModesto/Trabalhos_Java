@@ -4,20 +4,21 @@ Este repositório tem como finalidade armazenar e versionar os trabalhos desenvo
 
 ---
 
-## Estrutura do Projeto
-
+## 🗂️ Estrutura do Projeto 
+```
 Trabalhos_Java/
 │
 ├── ValidacaoPersonagem/
-│ └── (API de Validação de Personagens - Spring Boot)
+│   └── (API de Validação de Personagens - Spring Boot)
 │
 ├── cervejaria/
-│ └── (API de Cervejaria - Spring Boot com Cache e Swagger)
+│   └── (API de Cervejaria - Spring Boot com Cache e Swagger)
 │
 ├── games/
-│ └── (API de Jogos - Spring Boot com HATEOAS)
+│   └── (API de Jogos - Spring Boot com HATEOAS)
 │
 └── README.md
+```
 
 ---
 
@@ -34,6 +35,8 @@ Trabalhos_Java/
  	cd ValidacaoPersonagem
  	# ou
  	cd cervejaria
+ 	# ou
+ 	cd games
  	```
  
 4. Execute com Maven:
