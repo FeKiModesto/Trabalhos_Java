@@ -29,7 +29,7 @@ INSERT INTO game (title, description, release_date, rating, genre_id, platform_i
 VALUES ('God of War Ragnarök', 'Kratos and Atreus embark on an epic journey through the Nine Realms to prevent Ragnarök.', '2022-11-09', 9.4, 1, 5, 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5s5v.jpg', 'https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9mzr.jpg', false);
 
 INSERT INTO game (title, description, release_date, rating, genre_id, platform_id, cover_url, backdrop_url, in_wishlist)
-VALUES ('Baldurs Gate 3', 'A story-rich RPG where your choices shape a tale of fellowship and betrayal, survival and sacrifice.', '2023-08-03', 9.6, 3, 4, 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5vb3.jpg', 'https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9wsd.jpg', true);
+VALUES ('Baldur''s Gate 3', 'A story-rich RPG where your choices shape a tale of fellowship and betrayal, survival and sacrifice.', '2023-08-03', 9.6, 3, 4, 'https://images.igdb.com/igdb/image/upload/t_cover_big/co5vb3.jpg', 'https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9wsd.jpg', true);
 
 INSERT INTO game (title, description, release_date, rating, genre_id, platform_id, cover_url, backdrop_url, in_wishlist)
 VALUES ('Call of Duty: Modern Warfare III', 'The latest installment in the iconic first-person shooter franchise with intense multiplayer action.', '2023-11-10', 7.8, 8, 2, 'https://images.igdb.com/igdb/image/upload/t_cover_big/co6yza.jpg', 'https://images.igdb.com/igdb/image/upload/t_screenshot_big/sc9zvl.jpg', false);
