@@ -4,6 +4,8 @@ import fiap.com.br.games.controllers.GameController;
 import jakarta.persistence.*;
 import org.springframework.hateoas.EntityModel;
 
+import java.time.LocalDate;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Entity
@@ -14,25 +16,42 @@ public class Game {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
-    private String genre;
-    private String platform;
-    private Double price;
-    private String developer;
+    @Column(length = 1000)
+    private String description;
+
+    private LocalDate releaseDate;
+
+    private Double rating;
+
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
+
+    @ManyToOne
+    @JoinColumn(name = "platform_id")
+    private Platform platform;
+
+    private String coverUrl;
+    private String backdropUrl;
+    private boolean inWishlist;
 
     public Game() {
     }
 
-    public Game(String name, String genre, String platform, Double price, String developer) {
-        this.name = name;
+    public Game(String title, String description, LocalDate releaseDate, Double rating, Genre genre, Platform platform, String coverUrl, String backdropUrl, boolean inWishlist) {
+        this.title = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
         this.genre = genre;
         this.platform = platform;
-        this.price = price;
-        this.developer = developer;
+        this.coverUrl = coverUrl;
+        this.backdropUrl = backdropUrl;
+        this.inWishlist = inWishlist;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -41,51 +60,84 @@ public class Game {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getGenre() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
-    public String getPlatform() {
+    public Platform getPlatform() {
         return platform;
     }
 
-    public void setPlatform(String platform) {
+    public void setPlatform(Platform platform) {
         this.platform = platform;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getCoverUrl() {
+        return coverUrl;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
-    public String getDeveloper() {
-        return developer;
+    public String getBackdropUrl() {
+        return backdropUrl;
     }
 
-    public void setDeveloper(String developer) {
-        this.developer = developer;
+    public void setBackdropUrl(String backdropUrl) {
+        this.backdropUrl = backdropUrl;
+    }
+
+    public boolean isInWishlist() {
+        return inWishlist;
+    }
+
+    public void setInWishlist(boolean inWishlist) {
+        this.inWishlist = inWishlist;
     }
 
     public EntityModel<Game> toEntityModel() {
         var linkSelf = linkTo(methodOn(GameController.class).findById(id)).withSelfRel().withTitle("Game details");
         var linkAll = linkTo(methodOn(GameController.class).findAll()).withRel("all-games").withTitle("All games");
-        var linkByGenre = linkTo(methodOn(GameController.class).findByGenre(genre)).withRel("games-by-genre").withTitle("Same genre games");
+        var linkByGenre = linkTo(methodOn(GameController.class).findByGenre(genre.getId())).withRel("games-by-genre").withTitle("Same genre games");
+        var linkByPlatform = linkTo(methodOn(GameController.class).findByPlatform(platform.getId())).withRel("games-by-platform").withTitle("Same platform games");
 
-        return EntityModel.of(this, linkSelf, linkAll, linkByGenre);
+        return EntityModel.of(this, linkSelf, linkAll, linkByGenre, linkByPlatform);
     }
 }
