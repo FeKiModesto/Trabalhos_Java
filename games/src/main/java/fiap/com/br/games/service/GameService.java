@@ -26,15 +26,11 @@ public class GameService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found with id: " + id));
     }
 
-    public List<Game> findByGenre(String genre) {
-        return gameRepository.findByGenre(genre);
+    public List<Game> findByGenreId(Long genreId) {
+        return gameRepository.findByGenreId(genreId);
     }
 
-    public List<Game> findByPlatform(String platform) {
-        return gameRepository.findByPlatform(platform);
-    }
-
-    public List<Game> findByDeveloper(String developer) {
-        return gameRepository.findByDeveloper(developer);
+    public List<Game> findByPlatformId(Long platformId) {
+        return gameRepository.findByPlatformId(platformId);
     }
 }
