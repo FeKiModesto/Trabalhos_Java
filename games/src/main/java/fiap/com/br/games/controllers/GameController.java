@@ -2,12 +2,14 @@ package fiap.com.br.games.controllers;
 
 import fiap.com.br.games.model.Game;
 import fiap.com.br.games.service.GameService;
-import org.springframework.hateoas.CollectionModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -23,17 +25,28 @@ public class GameController {
     }
 
     @GetMapping
-    public Map<String, Object> findAll() {
-        List<EntityModel<Game>> games = gameService.findAll()
+    public Map<String, Object> findAll(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Game> gamePage = gameService.findAll(pageable);
+
+        List<EntityModel<Game>> games = gamePage.getContent()
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("size", gamePage.getSize());
+        pageInfo.put("totalElements", gamePage.getTotalElements());
+        pageInfo.put("totalPages", gamePage.getTotalPages());
+        pageInfo.put("number", gamePage.getNumber());
+        response.put("page", pageInfo);
+
         response.put("_links", Map.of(
-                "self", Map.of("href", linkTo(methodOn(GameController.class).findAll()).withSelfRel().getHref()),
-                "games", Map.of("href", linkTo(methodOn(GameController.class).findAll()).withRel("games").getHref())
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findAll(page, size)).withSelfRel().getHref())
         ));
 
         return response;
@@ -45,32 +58,58 @@ public class GameController {
     }
 
     @GetMapping("/genres/{genreId}")
-    public Map<String, Object> findByGenre(@PathVariable Long genreId) {
-        List<EntityModel<Game>> games = gameService.findByGenreId(genreId)
+    public Map<String, Object> findByGenre(@PathVariable Long genreId,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Game> gamePage = gameService.findByGenreId(genreId, pageable);
+
+        List<EntityModel<Game>> games = gamePage.getContent()
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("size", gamePage.getSize());
+        pageInfo.put("totalElements", gamePage.getTotalElements());
+        pageInfo.put("totalPages", gamePage.getTotalPages());
+        pageInfo.put("number", gamePage.getNumber());
+        response.put("page", pageInfo);
+
         response.put("_links", Map.of(
-                "self", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId)).withSelfRel().getHref())
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page, size)).withSelfRel().getHref())
         ));
 
         return response;
     }
 
     @GetMapping("/platforms/{platformId}")
-    public Map<String, Object> findByPlatform(@PathVariable Long platformId) {
-        List<EntityModel<Game>> games = gameService.findByPlatformId(platformId)
+    public Map<String, Object> findByPlatform(@PathVariable Long platformId,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Game> gamePage = gameService.findByPlatformId(platformId, pageable);
+
+        List<EntityModel<Game>> games = gamePage.getContent()
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
+
+        Map<String, Object> pageInfo = new HashMap<>();
+        pageInfo.put("size", gamePage.getSize());
+        pageInfo.put("totalElements", gamePage.getTotalElements());
+        pageInfo.put("totalPages", gamePage.getTotalPages());
+        pageInfo.put("number", gamePage.getNumber());
+        response.put("page", pageInfo);
+
         response.put("_links", Map.of(
-                "self", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId)).withSelfRel().getHref())
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page, size)).withSelfRel().getHref())
         ));
 
         return response;

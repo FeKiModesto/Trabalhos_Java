@@ -2,11 +2,11 @@ package fiap.com.br.games.service;
 
 import fiap.com.br.games.model.Game;
 import fiap.com.br.games.repository.GameRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class GameService {
@@ -17,8 +17,8 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public List<Game> findAll() {
-        return gameRepository.findAll();
+    public Page<Game> findAll(Pageable pageable) {
+        return gameRepository.findAll(pageable);
     }
 
     public Game findById(Long id) {
@@ -26,11 +26,11 @@ public class GameService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found with id: " + id));
     }
 
-    public List<Game> findByGenreId(Long genreId) {
-        return gameRepository.findByGenreId(genreId);
+    public Page<Game> findByGenreId(Long genreId, Pageable pageable) {
+        return gameRepository.findByGenreId(genreId, pageable);
     }
 
-    public List<Game> findByPlatformId(Long platformId) {
-        return gameRepository.findByPlatformId(platformId);
+    public Page<Game> findByPlatformId(Long platformId, Pageable pageable) {
+        return gameRepository.findByPlatformId(platformId, pageable);
     }
 }
