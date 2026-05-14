@@ -31,9 +31,27 @@ public class GameController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> gamePage = gameService.findAll(pageable);
 
+        // 🔧 FORÇA a criação dos links same-genre e same-platform para cada jogo
         List<EntityModel<Game>> games = gamePage.getContent()
                 .stream()
-                .map(Game::toEntityModel)
+                .map(game -> {
+                    EntityModel<Game> model = game.toEntityModel(); // self + all-games
+                    if (game.getGenre() != null) {
+                        var linkByGenre = linkTo(methodOn(GameController.class)
+                                .findByGenre(game.getGenre().getId(), 0, size))
+                                .withRel("same-genre")
+                                .withTitle("Games in " + game.getGenre().getName() + " genre");
+                        model.add(linkByGenre);
+                    }
+                    if (game.getPlatform() != null) {
+                        var linkByPlatform = linkTo(methodOn(GameController.class)
+                                .findByPlatform(game.getPlatform().getId(), 0, size))
+                                .withRel("same-platform")
+                                .withTitle("Games on " + game.getPlatform().getName());
+                        model.add(linkByPlatform);
+                    }
+                    return model;
+                })
                 .collect(Collectors.toList());
 
         Map<String, Object> response = new HashMap<>();
@@ -46,28 +64,19 @@ public class GameController {
         pageInfo.put("number", gamePage.getNumber());
         response.put("page", pageInfo);
 
-        // Links de navegação
+        // Links de navegação da página
         Map<String, Object> links = new HashMap<>();
-
-        // Self link
         links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findAll(page, size)).withSelfRel().getHref()));
-
-        // First link
         links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findAll(0, size)).withSelfRel().getHref()));
-
-        // Last link
-        links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findAll(gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-
-        // Prev link
+        if (gamePage.getTotalPages() > 0) {
+            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findAll(gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
+        }
         if (gamePage.hasPrevious()) {
             links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findAll(page - 1, size)).withSelfRel().getHref()));
         }
-
-        // Next link
         if (gamePage.hasNext()) {
             links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findAll(page + 1, size)).withSelfRel().getHref()));
         }
-
         response.put("_links", links);
 
         return response;
@@ -100,20 +109,18 @@ public class GameController {
         pageInfo.put("number", gamePage.getNumber());
         response.put("page", pageInfo);
 
-        // Links de navegação
         Map<String, Object> links = new HashMap<>();
-
         links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page, size)).withSelfRel().getHref()));
         links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, 0, size)).withSelfRel().getHref()));
-        links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-
+        if (gamePage.getTotalPages() > 0) {
+            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
+        }
         if (gamePage.hasPrevious()) {
             links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page - 1, size)).withSelfRel().getHref()));
         }
         if (gamePage.hasNext()) {
             links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page + 1, size)).withSelfRel().getHref()));
         }
-
         response.put("_links", links);
 
         return response;
@@ -141,20 +148,18 @@ public class GameController {
         pageInfo.put("number", gamePage.getNumber());
         response.put("page", pageInfo);
 
-        // Links de navegação
         Map<String, Object> links = new HashMap<>();
-
         links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page, size)).withSelfRel().getHref()));
         links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, 0, size)).withSelfRel().getHref()));
-        links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-
+        if (gamePage.getTotalPages() > 0) {
+            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
+        }
         if (gamePage.hasPrevious()) {
             links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page - 1, size)).withSelfRel().getHref()));
         }
         if (gamePage.hasNext()) {
             links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page + 1, size)).withSelfRel().getHref()));
         }
-
         response.put("_links", links);
 
         return response;
