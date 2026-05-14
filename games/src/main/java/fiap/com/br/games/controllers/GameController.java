@@ -1,6 +1,7 @@
 package fiap.com.br.games.controllers;
 
 import fiap.com.br.games.model.Game;
+import fiap.com.br.games.model.GameResponse;
 import fiap.com.br.games.service.GameService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,47 +27,56 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    private GameResponse toResponse(Game game) {
+        Map<String, Object> links = new HashMap<>();
+        links.put("self", Map.of("href", "http://localhost:8080/games/" + game.getId(), "title", "Game details"));
+        links.put("all-games", Map.of("href", "http://localhost:8080/games?page=0&size=6", "title", "All games"));
+        if (game.getGenre() != null) {
+            links.put("same-genre", Map.of(
+                    "href", "http://localhost:8080/games/genres/" + game.getGenre().getId() + "?page=0&size=6",
+                    "title", "Games in " + game.getGenre().getName() + " genre"
+            ));
+        }
+        if (game.getPlatform() != null) {
+            links.put("same-platform", Map.of(
+                    "href", "http://localhost:8080/games/platforms/" + game.getPlatform().getId() + "?page=0&size=6",
+                    "title", "Games on " + game.getPlatform().getName()
+            ));
+        }
+        return new GameResponse(game, links);
+    }
+
     @GetMapping
     public Map<String, Object> findAll(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "6") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> gamePage = gameService.findAll(pageable);
 
-        List<EntityModel<Game>> games = gamePage.getContent()
-                .stream()
-                .map(Game::toEntityModel)
+        List<GameResponse> games = gamePage.getContent().stream()
+                .map(this::toResponse)
                 .collect(Collectors.toList());
+
+        Map<String, Object> links = new HashMap<>();
+        links.put("self", Map.of("href", "http://localhost:8080/games?page=" + page + "&size=" + size));
+        links.put("first", Map.of("href", "http://localhost:8080/games?page=0&size=" + size));
+        if (gamePage.getTotalPages() > 0)
+            links.put("last", Map.of("href", "http://localhost:8080/games?page=" + (gamePage.getTotalPages() - 1) + "&size=" + size));
+        if (gamePage.hasPrevious())
+            links.put("prev", Map.of("href", "http://localhost:8080/games?page=" + (page - 1) + "&size=" + size));
+        if (gamePage.hasNext())
+            links.put("next", Map.of("href", "http://localhost:8080/games?page=" + (page + 1) + "&size=" + size));
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
-
-        Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("size", gamePage.getSize());
-        pageInfo.put("totalElements", gamePage.getTotalElements());
-        pageInfo.put("totalPages", gamePage.getTotalPages());
-        pageInfo.put("number", gamePage.getNumber());
-        response.put("page", pageInfo);
-
-        Map<String, Object> links = new HashMap<>();
-        links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findAll(page, size)).withSelfRel().getHref()));
-        links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findAll(0, size)).withSelfRel().getHref()));
-        if (gamePage.getTotalPages() > 0) {
-            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findAll(gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasPrevious()) {
-            links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findAll(page - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasNext()) {
-            links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findAll(page + 1, size)).withSelfRel().getHref()));
-        }
         response.put("_links", links);
-
+        response.put("page", Map.of("size", gamePage.getSize(), "totalElements", gamePage.getTotalElements(),
+                "totalPages", gamePage.getTotalPages(), "number", gamePage.getNumber()));
         return response;
     }
 
     @GetMapping("/{id}")
-    public EntityModel<Game> findById(@PathVariable Long id) {
-        return gameService.findById(id).toEntityModel();
+    public GameResponse findById(@PathVariable Long id) {
+        return toResponse(gameService.findById(id));
     }
 
     @GetMapping("/genres/{genreId}")
@@ -76,35 +86,18 @@ public class GameController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> gamePage = gameService.findByGenreId(genreId, pageable);
 
-        List<EntityModel<Game>> games = gamePage.getContent()
-                .stream()
-                .map(Game::toEntityModel)
+        List<GameResponse> games = gamePage.getContent().stream()
+                .map(this::toResponse)
                 .collect(Collectors.toList());
+
+        Map<String, Object> links = new HashMap<>();
+        links.put("self", Map.of("href", "http://localhost:8080/games/genres/" + genreId + "?page=" + page + "&size=" + size));
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
-
-        Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("size", gamePage.getSize());
-        pageInfo.put("totalElements", gamePage.getTotalElements());
-        pageInfo.put("totalPages", gamePage.getTotalPages());
-        pageInfo.put("number", gamePage.getNumber());
-        response.put("page", pageInfo);
-
-        Map<String, Object> links = new HashMap<>();
-        links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page, size)).withSelfRel().getHref()));
-        links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, 0, size)).withSelfRel().getHref()));
-        if (gamePage.getTotalPages() > 0) {
-            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasPrevious()) {
-            links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasNext()) {
-            links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId, page + 1, size)).withSelfRel().getHref()));
-        }
         response.put("_links", links);
-
+        response.put("page", Map.of("size", gamePage.getSize(), "totalElements", gamePage.getTotalElements(),
+                "totalPages", gamePage.getTotalPages(), "number", gamePage.getNumber()));
         return response;
     }
 
@@ -115,35 +108,18 @@ public class GameController {
         Pageable pageable = PageRequest.of(page, size);
         Page<Game> gamePage = gameService.findByPlatformId(platformId, pageable);
 
-        List<EntityModel<Game>> games = gamePage.getContent()
-                .stream()
-                .map(Game::toEntityModel)
+        List<GameResponse> games = gamePage.getContent().stream()
+                .map(this::toResponse)
                 .collect(Collectors.toList());
+
+        Map<String, Object> links = new HashMap<>();
+        links.put("self", Map.of("href", "http://localhost:8080/games/platforms/" + platformId + "?page=" + page + "&size=" + size));
 
         Map<String, Object> response = new HashMap<>();
         response.put("_embedded", Map.of("gameList", games));
-
-        Map<String, Object> pageInfo = new HashMap<>();
-        pageInfo.put("size", gamePage.getSize());
-        pageInfo.put("totalElements", gamePage.getTotalElements());
-        pageInfo.put("totalPages", gamePage.getTotalPages());
-        pageInfo.put("number", gamePage.getNumber());
-        response.put("page", pageInfo);
-
-        Map<String, Object> links = new HashMap<>();
-        links.put("self", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page, size)).withSelfRel().getHref()));
-        links.put("first", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, 0, size)).withSelfRel().getHref()));
-        if (gamePage.getTotalPages() > 0) {
-            links.put("last", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, gamePage.getTotalPages() - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasPrevious()) {
-            links.put("prev", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page - 1, size)).withSelfRel().getHref()));
-        }
-        if (gamePage.hasNext()) {
-            links.put("next", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId, page + 1, size)).withSelfRel().getHref()));
-        }
         response.put("_links", links);
-
+        response.put("page", Map.of("size", gamePage.getSize(), "totalElements", gamePage.getTotalElements(),
+                "totalPages", gamePage.getTotalPages(), "number", gamePage.getNumber()));
         return response;
     }
 }
