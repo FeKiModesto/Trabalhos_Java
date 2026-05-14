@@ -4,6 +4,14 @@ API para gerenciamento de jogos desenvolvida em **Spring Boot** com **HATEOAS** 
 
 ---
 
+## 🔗 Links Úteis
+
+| Link | Descrição |
+|------|-----------|
+| [GameFinder Web](https://github.com/joaocarloslima/gamefinder-web) | Front-end oficial do projeto |
+
+---
+
 ## 📋 Sumário
 
 - [Tecnologias](#tecnologias)
@@ -11,6 +19,9 @@ API para gerenciamento de jogos desenvolvida em **Spring Boot** com **HATEOAS** 
 - [Endpoints](#endpoints)
   - [Jogos (Games)](#jogos-games)
   - [Extras](#extras)
+- [IDs Disponíveis](#ids-disponíveis)
+  - [Gêneros (Genres)](#gêneros-genres)
+  - [Plataformas (Platforms)](#plataformas-platforms)
 - [Dados Iniciais](#dados-iniciais)
 - [Testando no Postman](#testando-no-postman)
 - [Autor](#autor)
@@ -51,57 +62,100 @@ A aplicação estará disponível em: http://localhost:8080
 ## 📍 Endpoints
 
 ## 🎮 Jogos (Games)
-| Método | Endpoint | Descrição | Testar no |
-|--------|----------|-----------|-----------|
-| GET | `/api/games` | Lista todos os jogos | 🌐 Web / 📮 Postman |
-| GET | `/api/games/{id}` | Busca jogo por ID | 🌐 Web / 📮 Postman |
-| GET | `/api/games/genre/{genre}` | Busca jogos por gênero | 🌐 Web / 📮 Postman |
-| GET | `/api/games/platform/{platform}` | Busca jogos por plataforma | 🌐 Web / 📮 Postman |
-| GET | `/api/games/developer/{developer}` | Busca jogos por desenvolvedora | 🌐 Web / 📮 Postman |
+
+### ℹ️ Como usar os endpoints de busca por gênero e plataforma
+
+Os endpoints `/games/genres/{genreId}` e `/games/platforms/{platformId}` utilizam **IDs numéricos** para identificar cada gênero ou plataforma.
+
+**Consulte a seção [IDs Disponíveis](#ids-disponíveis) para saber qual ID usar.**
+
+**Exemplos:**
+- Para buscar jogos de **PC**, use: `/games/platforms/4`
+- Para buscar jogos de **RPG**, use: `/games/genres/3`
+
+---
+
+### Endpoints disponíveis
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/games` | Lista todos os jogos |
+| GET | `/games/{id}` | Busca jogo por ID |
+| GET | `/games/genres/{genreId}` | Busca jogos por ID do gênero |
+| GET | `/games/platforms/{platformId}` | Busca jogos por ID da plataforma |
+
+## 📋 IDs Disponíveis
+Abaixo estão todos os ID's disponíveis para utilizar:
+
+### Gêneros (Genres)
+
+| ID | Nome |
+|----|------|
+| 1 | Action |
+| 2 | Adventure |
+| 3 | RPG |
+| 4 | Strategy |
+| 5 | Sports |
+| 6 | Racing |
+| 7 | Puzzle |
+| 8 | Shooter |
+| 9 | Fighting |
+| 10 | Platformer |
+
+### Plataformas (Platforms)
+
+| ID | Nome |
+|----|------|
+| 1 | PlayStation 5 |
+| 2 | Xbox Series X |
+| 3 | Nintendo Switch |
+| 4 | PC |
+| 5 | PlayStation 4 |
+| 6 | Xbox One |
+
+---
 
 Exemplo de resposta (HATEOAS):
 ```bash
 {
-  "id": 1,
-  "name": "The Legend of Zelda: Tears of the Kingdom",
-  "genre": "Adventure",
-  "platform": "Nintendo Switch",
-  "price": 299.9,
-  "developer": "Nintendo",
+  "title": "The Legend of Zelda: Tears of the Kingdom",
+  "rating": 9.5,
+  "genre": { "id": 2, "name": "Adventure" },
+  "platform": { "id": 3, "name": "Nintendo Switch" },
   "_links": {
-    "self": { "href": "http://localhost:8080/api/games/1", "title": "Game details" },
-    "all-games": { "href": "http://localhost:8080/api/games", "title": "All games" },
-    "games-by-genre": { "href": "http://localhost:8080/api/games/genre/Adventure", "title": "Same genre games" }
+    "self": { "href": "http://localhost:8080/games/1" },
+    "all-games": { "href": "http://localhost:8080/games" },
+    "games-by-genre": { "href": "http://localhost:8080/games/genres/2" },
+    "games-by-platform": { "href": "http://localhost:8080/games/platforms/3" }
   }
 }
 ```
 
+---
+
 ## 🔧 Extras
 
-| Tipo | Endpoint | Descrição | Testar no |
-|------|----------|-----------|-----------|
-| 🗄️ Banco de dados | `/h2-console` | Console H2 | 🌐 Web (navegador) |
+| Tipo | Endpoint | Descrição |
+|------|----------|-----------|
+| 🗄️ Banco de dados | `/h2-console` | Console H2 |
 
 ### Configuração H2 Console:
-- JDBC URL: jdbc:h2:mem:gamesdb
-- User Name: sa
+- JDBC URL: `jdbc:h2:mem:gamesdb`
+- User Name: `sa`
 - Password: (vazio)
 
+---
+
 ## 📊 Dados Iniciais (Jogos)
-| ID | Nome | Gênero | Plataforma | Preço | Desenvolvedora |
-|----|------|--------|------------|-------|----------------|
-| 1 | The Legend of Zelda: Tears of the Kingdom | Adventure | Nintendo Switch | R$ 299,90 | Nintendo |
-| 2 | God of War Ragnarök | Action | PlayStation 5 | R$ 249,90 | Santa Monica Studio |
-| 3 | Elden Ring | RPG | PC | R$ 199,90 | FromSoftware |
-| 4 | Hogwarts Legacy | RPG | PlayStation 5 | R$ 249,90 | Avalanche Software |
-| 5 | Stardew Valley | Simulation | PC | R$ 29,90 | ConcernedApe |
-| 6 | Super Mario Odyssey | Platformer | Nintendo Switch | R$ 249,90 | Nintendo |
-| 7 | Cyberpunk 2077 | RPG | PC | R$ 149,90 | CD Projekt Red |
-| 8 | Red Dead Redemption 2 | Adventure | PlayStation 4 | R$ 149,90 | Rockstar Games |
-| 9 | Hades | Roguelike | PC | R$ 69,90 | Supergiant Games |
-| 10 | Spider-Man: Miles Morales | Action | PlayStation 5 | R$ 199,90 | Insomniac Games |
-| 11 | Animal Crossing: New Horizons | Simulation | Nintendo Switch | R$ 249,90 | Nintendo |
-| 12 | Horizon Forbidden West | Adventure | PlayStation 5 | R$ 249,90 | Guerrilla Games |
+
+| ID | Título | Gênero | Plataforma | Nota |
+|----|--------|--------|------------|------|
+| 1 | The Legend of Zelda: Tears of the Kingdom | Adventure (2) | Nintendo Switch (3) | 9.5 |
+| 2 | God of War Ragnarök | Action (1) | PlayStation 5 (1) | 9.4 |
+| 3 | Elden Ring | RPG (3) | PC (4) | 9.3 |
+| ... | ... | ... | ... | ... |
+
+> ⚠️ A lista completa de jogos pode ser consultada diretamente no arquivo `data.sql` do repositório.
 
 ## 📮 Testando no Postman
 ### Configuração Base
@@ -115,27 +169,22 @@ Exemplos de Requisições
 
 ### Listar todos os jogos (GET)
 ```bash
-GET http://localhost:8080/api/games
+http://localhost:8080/games
 ```
 
 ### Buscar jogo por ID (GET)
 ```bash
-GET http://localhost:8080/api/games/1
+http://localhost:8080/games/1
 ```
 
 ### Buscar por gênero (GET)
 ```bash
-GET http://localhost:8080/api/games/genre/RPG
+http://localhost:8080/games/genres/3
 ```
 
 ### Buscar por plataforma (GET)
 ```bash
-GET http://localhost:8080/api/games/platform/PC
-```
-
-### Buscar por desenvolvedora (GET)
-```bash
-GET http://localhost:8080/api/games/developer/Nintendo
+http://localhost:8080/games/platforms/4
 ```
 
 ## 📌 Resumo: O que testar em cada ferramenta
