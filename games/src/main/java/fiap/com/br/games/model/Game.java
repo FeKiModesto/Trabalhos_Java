@@ -37,8 +37,7 @@ public class Game {
     private String backdropUrl;
     private boolean inWishlist;
 
-    public Game() {
-    }
+    public Game() {}
 
     public Game(String title, String description, LocalDate releaseDate, Double rating, Genre genre, Platform platform, String coverUrl, String backdropUrl, boolean inWishlist) {
         this.title = title;
@@ -52,85 +51,35 @@ public class Game {
         this.inWishlist = inWishlist;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public LocalDate getReleaseDate() { return releaseDate; }
+    public void setReleaseDate(LocalDate releaseDate) { this.releaseDate = releaseDate; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Double getRating() { return rating; }
+    public void setRating(Double rating) { this.rating = rating; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Genre getGenre() { return genre; }
+    public void setGenre(Genre genre) { this.genre = genre; }
 
-    public LocalDate getReleaseDate() {
-        return releaseDate;
-    }
+    public Platform getPlatform() { return platform; }
+    public void setPlatform(Platform platform) { this.platform = platform; }
 
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
-    }
+    public String getCoverUrl() { return coverUrl; }
+    public void setCoverUrl(String coverUrl) { this.coverUrl = coverUrl; }
 
-    public Double getRating() {
-        return rating;
-    }
+    public String getBackdropUrl() { return backdropUrl; }
+    public void setBackdropUrl(String backdropUrl) { this.backdropUrl = backdropUrl; }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public Platform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(Platform platform) {
-        this.platform = platform;
-    }
-
-    public String getCoverUrl() {
-        return coverUrl;
-    }
-
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
-
-    public String getBackdropUrl() {
-        return backdropUrl;
-    }
-
-    public void setBackdropUrl(String backdropUrl) {
-        this.backdropUrl = backdropUrl;
-    }
-
-    public boolean isInWishlist() {
-        return inWishlist;
-    }
-
-    public void setInWishlist(boolean inWishlist) {
-        this.inWishlist = inWishlist;
-    }
+    public boolean isInWishlist() { return inWishlist; }
+    public void setInWishlist(boolean inWishlist) { this.inWishlist = inWishlist; }
 
     public EntityModel<Game> toEntityModel() {
         var linkSelf = linkTo(methodOn(GameController.class).findById(id)).withSelfRel().withTitle("Game details");
