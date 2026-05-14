@@ -2,10 +2,15 @@ package fiap.com.br.games.controllers;
 
 import fiap.com.br.games.model.Game;
 import fiap.com.br.games.service.GameService;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/games")
@@ -18,11 +23,20 @@ public class GameController {
     }
 
     @GetMapping
-    public List<EntityModel<Game>> findAll() {
-        return gameService.findAll()
+    public Map<String, Object> findAll() {
+        List<EntityModel<Game>> games = gameService.findAll()
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("_embedded", Map.of("gameList", games));
+        response.put("_links", Map.of(
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findAll()).withSelfRel().getHref()),
+                "games", Map.of("href", linkTo(methodOn(GameController.class).findAll()).withRel("games").getHref())
+        ));
+
+        return response;
     }
 
     @GetMapping("/{id}")
@@ -31,18 +45,34 @@ public class GameController {
     }
 
     @GetMapping("/genres/{genreId}")
-    public List<EntityModel<Game>> findByGenre(@PathVariable Long genreId) {
-        return gameService.findByGenreId(genreId)
+    public Map<String, Object> findByGenre(@PathVariable Long genreId) {
+        List<EntityModel<Game>> games = gameService.findByGenreId(genreId)
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("_embedded", Map.of("gameList", games));
+        response.put("_links", Map.of(
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findByGenre(genreId)).withSelfRel().getHref())
+        ));
+
+        return response;
     }
 
     @GetMapping("/platforms/{platformId}")
-    public List<EntityModel<Game>> findByPlatform(@PathVariable Long platformId) {
-        return gameService.findByPlatformId(platformId)
+    public Map<String, Object> findByPlatform(@PathVariable Long platformId) {
+        List<EntityModel<Game>> games = gameService.findByPlatformId(platformId)
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("_embedded", Map.of("gameList", games));
+        response.put("_links", Map.of(
+                "self", Map.of("href", linkTo(methodOn(GameController.class).findByPlatform(platformId)).withSelfRel().getHref())
+        ));
+
+        return response;
     }
 }
