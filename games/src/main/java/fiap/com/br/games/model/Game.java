@@ -134,17 +134,17 @@ public class Game {
 
     public EntityModel<Game> toEntityModel() {
         var linkSelf = linkTo(methodOn(GameController.class).findById(id)).withSelfRel().withTitle("Game details");
-        var linkAll = linkTo(methodOn(GameController.class).findAll()).withRel("all-games").withTitle("All games");
+        var linkAll = linkTo(methodOn(GameController.class).findAll(0, 10)).withRel("all-games").withTitle("All games");
 
         EntityModel<Game> entityModel = EntityModel.of(this, linkSelf, linkAll);
 
         if (genre != null) {
-            var linkByGenre = linkTo(methodOn(GameController.class).findByGenre(genre.getId())).withRel("games-by-genre").withTitle("Same genre games");
+            var linkByGenre = linkTo(methodOn(GameController.class).findByGenre(genre.getId(), 0, 10)).withRel("games-by-genre").withTitle("Same genre games");
             entityModel.add(linkByGenre);
         }
 
         if (platform != null) {
-            var linkByPlatform = linkTo(methodOn(GameController.class).findByPlatform(platform.getId())).withRel("games-by-platform").withTitle("Same platform games");
+            var linkByPlatform = linkTo(methodOn(GameController.class).findByPlatform(platform.getId(), 0, 10)).withRel("games-by-platform").withTitle("Same platform games");
             entityModel.add(linkByPlatform);
         }
 
