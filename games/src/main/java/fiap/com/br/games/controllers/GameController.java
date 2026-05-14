@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/games")
+@RequestMapping("/games")
 public class GameController {
 
     private final GameService gameService;
@@ -30,25 +30,17 @@ public class GameController {
         return gameService.findById(id).toEntityModel();
     }
 
-    @GetMapping("/genre/{genre}")
-    public List<EntityModel<Game>> findByGenre(@PathVariable String genre) {
-        return gameService.findByGenre(genre)
+    @GetMapping("/genres/{genreId}")
+    public List<EntityModel<Game>> findByGenre(@PathVariable Long genreId) {
+        return gameService.findByGenreId(genreId)
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
     }
 
-    @GetMapping("/platform/{platform}")
-    public List<EntityModel<Game>> findByPlatform(@PathVariable String platform) {
-        return gameService.findByPlatform(platform)
-                .stream()
-                .map(Game::toEntityModel)
-                .toList();
-    }
-
-    @GetMapping("/developer/{developer}")
-    public List<EntityModel<Game>> findByDeveloper(@PathVariable String developer) {
-        return gameService.findByDeveloper(developer)
+    @GetMapping("/platforms/{platformId}")
+    public List<EntityModel<Game>> findByPlatform(@PathVariable Long platformId) {
+        return gameService.findByPlatformId(platformId)
                 .stream()
                 .map(Game::toEntityModel)
                 .toList();
