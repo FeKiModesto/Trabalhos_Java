@@ -44,21 +44,29 @@ API REST para gerenciamento de jogos com **Spring HATEOAS**, paginação e integ
 
 ### Passos
 
+## 1. Clone o repositório
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/FeKiModesto/Trabalhos_Java.git
+```
 
-# 2. Entre na pasta do projeto desejado
-cd Trabalhos_Java/games
-# ou: cd Trabalhos_Java/cervejaria
-# ou: cd Trabalhos_Java/ValidacaoPersonagem
+## 2. Entre na pasta do projeto desejado
+  ```bash
+  cd Trabalhos_Java/games
+  # ou:
+  cd Trabalhos_Java/cervejaria
+  # ou:
+  cd Trabalhos_Java/ValidacaoPersonagem
+  ```
 
-# 3. Execute com Maven
+## 3. Execute com Maven
+```bash
 ./mvnw spring-boot:run
 # No Windows:
 mvnw.cmd spring-boot:run
+```
 
-# 4. Acesse a API
+## 4. Acesse a API
+```bash
 # http://localhost:8080
 ```
 
