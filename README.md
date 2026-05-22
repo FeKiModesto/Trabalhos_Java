@@ -1,10 +1,10 @@
-# 📚 Trabalhos_Java
+# Trabalhos_Java
 
 Este repositório armazena e versiona os trabalhos desenvolvidos em aula para a disciplina de **Java**, facilitando o acompanhamento do progresso, a organização dos códigos e o compartilhamento com colegas e professores.
 
 ---
 
-## 🗂️ Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 Trabalhos_Java/
@@ -23,7 +23,7 @@ Trabalhos_Java/
 
 ---
 
-## 📌 Projetos Disponíveis
+## Projetos Disponíveis
 
 ### 1. ValidacaoPersonagem
 API para criação e validação de personagens de jogo com CRUD completo.
@@ -36,7 +36,7 @@ API REST para gerenciamento de jogos com **Spring HATEOAS**, paginação e integ
 
 ---
 
-## 🚀 Como Executar os Projetos
+## Como Executar os Projetos
 
 ### Pré-requisitos
 - **JDK 17** instalado
@@ -72,13 +72,13 @@ mvnw.cmd spring-boot:run
 
 ---
 
-## 📌 Próximos Passos
+## Próximos Passos
 - Adicionar novos trabalhos realizados em aula.
 - Incluir testes automatizados.
 - Refatorar e documentar as classes conforme os conceitos avançam (POO, herança, interfaces, etc.).
 
 ---
 
-## 👨‍🎓 Autor
+## Autor
 - **Nome:** Felipe Kirschner Modesto
 - **Email:** fekimodesto04@gmail.com
