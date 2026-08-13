@@ -1,0 +1,12 @@
+### GET list all passwords
+GET http://localhost:8080/pass
+Authorization: Bearer SEU_TOKEN_AQUI
+
+### POST login
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "joao",
+  "password": "123456"
+}
