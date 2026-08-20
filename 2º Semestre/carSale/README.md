@@ -6,10 +6,11 @@ Projeto baseado no exercício **CarSale** da disciplina de Java Advanced na FIAP
 
 ---
 
-## Repositórios Originais
+## Repositórios de Referência
 
-- 🔗 [carsale-api](https://github.com/joaocarloslima/carsale-api) — back-end original do professor
-- 🔗 [carsale](https://github.com/joaocarloslima/carsale) — front-end original do professor
+- 🍴 [Meu Fork do carsale-api](https://github.com/FeKiModesto/carsale-api) — Repositório onde realizei o fork para as alterações do back-end
+- 🔗 [carsale-api (Original)](https://github.com/joaocarloslima/carsale-api) — Back-end original do professor
+- 🔗 [carsale (Original)](https://github.com/joaocarloslima/carsale) — Front-end original do professor
 
 ---
 
@@ -19,8 +20,8 @@ Aplicação web de venda de carros com sistema de comentários. O front-end exib
 
 A aplicação é composta por duas partes:
 
-- **carsale-api** — API REST em Spring Boot com autenticação JWT via RSA
-- **carsale** — front-end em Next.js consumindo a API (sem alterações, utilizar o repositório original do professor)
+- **carsale-api** — API REST em Spring Boot com autenticação JWT via RSA (baseada no meu fork modificado)
+- **carsale** — Front-end em Next.js consumindo a API
 
 ---
 
@@ -60,7 +61,7 @@ O projeto original não possuía controle de acesso nos endpoints nem um `Passwo
 
 ```bash
 # Entre na pasta da api
-cd carsale-api
+cd carSale/carsale-api
 
 # Execute com Maven
 ./mvnw spring-boot:run
@@ -69,4 +70,4 @@ cd carsale-api
 # http://localhost:8080
 ```
 
-Para rodar o front, siga as instruções no [repositório original](https://github.com/joaocarloslima/carsale).
+Para rodar o front, siga as instruções no repositório original do professor.
