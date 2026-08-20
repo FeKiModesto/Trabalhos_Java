@@ -6,7 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-public class MyPassApplication {
+public class
+MyPassApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MyPassApplication.class, args);
