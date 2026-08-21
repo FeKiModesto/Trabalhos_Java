@@ -33,24 +33,36 @@ Trabalhos_Java/
 ### Pré-requisitos
 
 - **JDK 17** instalado
-- **Gradle** (ou usar o wrapper `gradlew` incluído em cada projeto)
+- **Maven** ou **Gradle** (cada projeto usa o wrapper incluído na pasta)
 
-### Passos
+### Projetos Gradle (myPass)
 
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/FeKiModesto/Trabalhos_Java.git
-
-# 2. Entre na pasta do projeto desejado
+# Entre na pasta do projeto
 cd "Trabalhos_Java/2º Semestre/myPass"
 
-# 3. Execute com Gradle
+# Execute
 ./gradlew bootRun
 # No Windows:
 gradlew.bat bootRun
+```
 
-# 4. Acesse a API
-# http://localhost:8080
+### Projetos Maven (carSale e 1º Semestre)
+
+```bash
+# Entre na pasta do projeto
+cd "Trabalhos_Java/2º Semestre/carSale/carsale-api"
+
+# Execute
+./mvnw spring-boot:run
+# No Windows:
+mvnw.cmd spring-boot:run
+```
+
+### Acesse a API
+
+```
+http://localhost:8080
 ```
 
 ---
