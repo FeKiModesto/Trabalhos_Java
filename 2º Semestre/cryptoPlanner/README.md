@@ -40,3 +40,6 @@ O front-end utilizado é de autoria do professor **João Carlos Lima**.
 
 - Fork: https://github.com/FeKiModesto/cripto-web
 - Projeto original: https://github.com/joaocarloslima/cripto-web
+
+## Autor
+- Felipe Kirschner Modesto
