@@ -15,6 +15,7 @@ Trabalhos_Java/
 ├── 2º Semestre/
 │ ├── myPass/
 │ ├── carSale/
+│ ├── cryptoPlanner/
 │ └── README.md
 └── README.md
 ```
