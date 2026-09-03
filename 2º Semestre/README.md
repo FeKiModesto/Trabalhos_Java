@@ -25,6 +25,9 @@ API REST Spring Boot/Maven baseada no projeto do Prof. João Carlos Lima, focada
 ### Cripto Planner
 Aplicação que analisa a variação de preço de criptomoedas nas últimas 24h (via API pública da CoinGecko) e devolve uma recomendação sobre comprar, vender ou investir.
 
+### Board Vault
+Catálogo de jogos de tabuleiro com API REST em Spring Boot, banco PostgreSQL via Docker e versionamento de schema com Flyway. O front-end consome dois endpoints para listar e detalhar jogos.
+
 O projeto é dividido em duas partes:
 
 - **`cripto-planner/`** — API REST em Spring Boot 4 com Gradle e Java 17. Usa Spring HTTP Interface (`@HttpExchange`) para consumir a CoinGecko sem precisar de RestTemplate ou WebClient na mão.
