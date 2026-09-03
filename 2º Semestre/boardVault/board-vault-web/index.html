@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board Vault</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="panel">
+      <header class="panel-header">
+        <h1>🎲 Board Vault</h1>
+        <p class="subtitle">Descubra e avalie os melhores jogos de tabuleiro do acervo.</p>
+      </header>
+
+      <main>
+        <div id="status" class="status"></div>
+        <section id="grid" class="grid"></section>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <button id="modal-close" class="modal-close">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
